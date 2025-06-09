@@ -226,8 +226,17 @@ public:
   /** Use the class's colours as the parameter to this function */
   void setColor(int colorCode){
     if(colorCode == STATIONARY_COLOR){
+      // Pure green
       digitalWrite(redPin, LOW);
       digitalWrite(greenPin, HIGH);
+    } else if(colorCode == MOVING_COLOR){
+      // Yellow
+      analogWrite(redPin, 255);
+      analogWrite(greenPin, 100)
+    } else {
+      // Error, pure red
+      digitalWrite(redPin, HIGH);
+      digitalWrite(greenPin, LOW);
     }
   }
 private:

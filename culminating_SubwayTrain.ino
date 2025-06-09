@@ -19,6 +19,7 @@ const int SPEED_POT_PIN = A2;
 const int PHOTO_PIN = A3;
 const int FORWARD_BUTTON_PIN = A4;
 const int BACKWARD_BUTTON_PIN = A5;
+const int RGB_RED = 11, RGB_GREEN = 10;
 
 const int LCD_WIDTH = 16, LCD_HEIGHT = 2;
 const String STATIONS[] = {

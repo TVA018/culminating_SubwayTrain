@@ -8,10 +8,13 @@ ForwardButton forwardButton(&rotater);
 BackwardButton backwardButton(&rotater);
 
 AutoLeds autoLeds(PHOTO_PIN, LEDS, sizeof(LEDS)/sizeof(int), 200);
+StatusLight statusLight(RGB_RED, RGB_GREEN);
 
 void setup() {
   Serial.begin(9600);
   Serial.println();
+
+  statusLight.setColor(StatusLight.ERROR_COLOR); // start with an error color, will be changed if setup completes properly
 
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
@@ -21,6 +24,8 @@ void setup() {
   autoLeds.begin();
   forwardButton.begin();
   backwardButton.begin();
+  
+  statusLight.setColor(StatusLight.STATIONARY_COLOR); // setup complete, go back to normal
 }
 
 void loop() {
@@ -40,6 +45,13 @@ void loop() {
 
   lcd.setCursor(0, 1);
   lcd.print(rotater.getString());
+
+  // update status light
+  if(motorDirection == 0){ // stationary
+    statusLight.setColor(StatusLight.STATIONARY_COLOR);
+  } else {
+    statusLight.setColor(StatusLight.MOVING_COLOR);
+  }
 
   int speed = analogRead(SPEED_POT_PIN);
   speed = map(speed, 0, 1023, 0, 255);
