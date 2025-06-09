@@ -1,5 +1,3 @@
-#include <LiquidCrystal.h>
-
 // This file primarily sets up the global variables and necessary methods
 
 // Declare functions but don't define its behaviour yet

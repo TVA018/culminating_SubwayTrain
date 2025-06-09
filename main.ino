@@ -1,3 +1,5 @@
+#include <LiquidCrystal.h>
+
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 DeltaTracker deltaTracker;
 StringRotater rotater(STATIONS[currentStationIndex], 600);
