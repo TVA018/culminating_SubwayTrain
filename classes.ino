@@ -205,3 +205,32 @@ private:
   int numLeds;
   int minBrightness;
 };
+
+/** The RGB light responsible for showing the current status of the subway train */
+class StatusLight {
+public:
+  static const int STATIONARY_COLOR = 0;
+  static const int MOVING_COLOR = 1;
+  static const int ERROR_COLOR = 2;
+
+  StatusLight(int RED_PIN, int GREEN_PIN){
+    redPin = RED_PIN;
+    greenPin = GREEN_PIN;
+  }
+
+  void begin(){
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+  }
+
+  /** Use the class's colours as the parameter to this function */
+  void setColor(int colorCode){
+    if(colorCode == STATIONARY_COLOR){
+      digitalWrite(redPin, LOW);
+      digitalWrite(greenPin, HIGH);
+    }
+  }
+private:
+  int redPin;
+  int greenPin;
+}
