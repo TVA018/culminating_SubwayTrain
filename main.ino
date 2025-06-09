@@ -15,9 +15,6 @@ void setup() {
 
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
-  // Print a message to the LCD.
-  lcd.setCursor(0, 0);
-  lcd.print(padStrForLCD("Next Station"));
 
   pinMode(SPEED_POT_PIN, INPUT);
   deltaTracker.begin();
@@ -36,6 +33,10 @@ void loop() {
   backwardButton.update(deltaMs);
   rotater.update(deltaMs);
   autoLeds.update();
+
+  // print on lcd
+  lcd.setCursor(0, 0);
+  lcd.print(stationHeader);
 
   lcd.setCursor(0, 1);
   lcd.print(rotater.getString());

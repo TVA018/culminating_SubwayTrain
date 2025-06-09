@@ -20,7 +20,12 @@ private:
     if(motorDirection == 0){
       // Just arrived at a new location, had to have been moving backwards
       currentStationIndex--;
-      rotater->setString(STATIONS[currentStationIndex]);
+      stationHeader = padStrForLCD("Currently At");
+    } else {
+      // Currently in motion
+      // get next station
+      stationHeader = padStrForLCD("Next Station");
+      rotater->setString(STATIONS[currentStationIndex + motorDirection]);
     }
   }
 };
@@ -46,7 +51,12 @@ private:
     if(motorDirection == 0){
       // Just arrived at a new location, had to have been moving forwards
       currentStationIndex++;
-      rotater->setString(STATIONS[currentStationIndex]);
+      stationHeader = padStrForLCD("Currently At");
+    } else {
+      // Currently in motion
+      // get next station
+      stationHeader = padStrForLCD("Next Station");
+      rotater->setString(STATIONS[currentStationIndex + motorDirection]);
     }
   }
 };

@@ -41,6 +41,7 @@ const int NUM_STATIONS = sizeof(STATIONS)/sizeof(String);
 
 int motorDirection = 0; // -1 is backwards, 0 is none, and 1 is forward
 
+String stationHeader = padStrForLCD("Currently At");
 int currentStationIndex = 0;
 
 const int BUTTON_DEBOUNCE = 10;
