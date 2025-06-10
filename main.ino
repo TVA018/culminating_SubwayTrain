@@ -10,6 +10,8 @@ BackwardButton backwardButton(&rotater);
 AutoLeds autoLeds(PHOTO_PIN, LEDS, sizeof(LEDS)/sizeof(int), 200);
 StatusLight statusLight(RGB_RED, RGB_GREEN);
 
+SequencePlayer songPlayer(BUZZER_PIN);
+
 void setup() {
   Serial.begin(9600);
   Serial.println();
@@ -24,10 +26,10 @@ void setup() {
   autoLeds.begin();
   forwardButton.begin();
   backwardButton.begin();
+  songPlayer.begin();
+  songPlayer.play(SWAN_LAKE, NUM_NOTES_SWAN);
   
   statusLight.setColor(STATIONARY_COLOR); // setup complete, go back to normal
-
-  pinMode(BUZZER_PIN, OUTPUT);
 }
 
 void loop() {
@@ -39,6 +41,7 @@ void loop() {
   forwardButton.update(deltaMs);
   backwardButton.update(deltaMs);
   rotater.update(deltaMs);
+  songPlayer.update(deltaMs);
   autoLeds.update();
 
   // print on lcd

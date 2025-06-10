@@ -1,27 +1,29 @@
 // subclasses which acts as instances of the super class with overrided methods and properties
-class ForwardButton: public ButtonManager {
+class ForwardButton : public ButtonManager {
 public:
-  ForwardButton() : ForwardButton(new StringRotater()) {
+  ForwardButton()
+    : ForwardButton(new StringRotater()) {
     Serial.println("WARNING, YOU SHOULD NOT BE CREATING THIS CLASS WITH THIS CONSTRUCTOR");
   }
 
-  ForwardButton(StringRotater* rotater): ButtonManager(FORWARD_BUTTON_PIN, BUTTON_DEBOUNCE) {
+  ForwardButton(StringRotater* rotater)
+    : ButtonManager(FORWARD_BUTTON_PIN, BUTTON_DEBOUNCE) {
     this->rotater = rotater;
   }
 private:
   StringRotater* rotater;
 
   void onRelease() override {
-    if(currentStationIndex >= (NUM_STATIONS - 1) && motorDirection == 0) return;
+    if (currentStationIndex >= (NUM_STATIONS - 1) && motorDirection == 0) return;
 
-    motorDirection = min(motorDirection + 1, 1); // increase by 1, capped at 1
+    motorDirection = min(motorDirection + 1, 1);  // increase by 1, capped at 1
     printDirection();
 
-    if(motorDirection == 0){
+    if (motorDirection == 0) {
       // Just arrived at a new location, had to have been moving backwards
       currentStationIndex--;
       stationHeader = padStrForLCD("Currently At");
-      tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
+      // tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
     } else {
       // Currently in motion
       // get next station
@@ -31,29 +33,31 @@ private:
   }
 };
 
-class BackwardButton: public ButtonManager {
+class BackwardButton : public ButtonManager {
 public:
-  BackwardButton() : BackwardButton(new StringRotater()) {
+  BackwardButton()
+    : BackwardButton(new StringRotater()) {
     Serial.println("WARNING, YOU SHOULD NOT BE CREATING THIS CLASS WITH THIS CONSTRUCTOR");
   }
 
-  BackwardButton(StringRotater* rotater): ButtonManager(BACKWARD_BUTTON_PIN, BUTTON_DEBOUNCE) {
+  BackwardButton(StringRotater* rotater)
+    : ButtonManager(BACKWARD_BUTTON_PIN, BUTTON_DEBOUNCE) {
     this->rotater = rotater;
   }
 private:
   StringRotater* rotater;
 
   void onRelease() override {
-    if(currentStationIndex <= 0 && motorDirection == 0) return;
+    if (currentStationIndex <= 0 && motorDirection == 0) return;
 
-    motorDirection = max(motorDirection - 1, -1); // decrease by 1, capped at -1
+    motorDirection = max(motorDirection - 1, -1);  // decrease by 1, capped at -1
     printDirection();
 
-    if(motorDirection == 0){
+    if (motorDirection == 0) {
       // Just arrived at a new location, had to have been moving forwards
       currentStationIndex++;
       stationHeader = padStrForLCD("Currently At");
-      tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
+      // tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
     } else {
       // Currently in motion
       // get next station

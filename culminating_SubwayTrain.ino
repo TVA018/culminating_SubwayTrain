@@ -1,4 +1,9 @@
 // This file primarily sets up the global variables and necessary methods
+enum StatusColors {
+  STATIONARY_COLOR,
+  MOVING_COLOR,
+  ERROR_COLOR
+};
 
 // Declare functions but don't define its behaviour yet
 String repeatString(String baseString, int numberOfRepeats);
@@ -47,11 +52,5 @@ int currentStationIndex = 0;
 
 const int BUTTON_DEBOUNCE = 10;
 
-enum StatusColors {
-  STATIONARY_COLOR,
-  MOVING_COLOR,
-  ERROR_COLOR
-};
-
-const unsigned int BEEP_FREQUENCY = 800;
-const unsigned long BEEP_DURATION = 1000;
+// const unsigned int BEEP_FREQUENCY = 800;
+// const unsigned long BEEP_DURATION = 1000;

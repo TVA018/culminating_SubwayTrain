@@ -239,3 +239,83 @@ private:
   int redPin;
   int greenPin;
 };
+
+class SequencePlayer {
+  public:
+    bool looped = false;
+
+    SequencePlayer(int buzzerPin){
+      this->BUZZER_PIN = buzzerPin;
+    }
+
+    void begin() {
+      pinMode(BUZZER_PIN, OUTPUT);
+    }
+
+    void update(long deltaMs){
+      if(!isPlaying || !SONG_SEQUENCE){
+        return;
+      }
+
+      timeSinceLastNote += deltaMs;
+
+      int noteDuration = SONG_SEQUENCE[noteIndex * 3 + 2];
+
+      if(timeSinceLastNote >= noteDuration - timeoutBetweenNotesMillis){
+        // brief stop to allow multiple of the same notes in a row to sound distinct
+        if(timeSinceLastNote < noteDuration){
+          noTone(BUZZER_PIN);
+          return;
+        }
+
+        timeSinceLastNote -= noteDuration;
+
+        noteIndex++;
+
+        if(noteIndex >= NUM_NOTES){
+          if(looped){
+            noteIndex = 0; // reset to the beginning
+          } else {
+            stop();
+          }
+          return;
+        }
+
+        int arrayIndex = noteIndex * 3;
+        int noteName = SONG_SEQUENCE[arrayIndex];
+        int octave = SONG_SEQUENCE[arrayIndex + 1];
+
+        int noteFrequency = getFrequencyHz(noteName, octave);
+        tone(BUZZER_PIN, noteFrequency);
+      } else if(noteIndex == 0){
+        int arrayIndex = noteIndex * 3;
+        int noteName = SONG_SEQUENCE[arrayIndex];
+        int octave = SONG_SEQUENCE[arrayIndex + 1];
+        int noteFrequency = getFrequencyHz(noteName, octave);
+
+        tone(BUZZER_PIN, noteFrequency);
+      }
+    }
+
+    void play(int* songSequence, int numNotes){
+      SONG_SEQUENCE = songSequence;
+      NUM_NOTES = numNotes;
+      isPlaying = true;
+    }
+
+    void stop(){
+      isPlaying = false;
+      noteIndex = 0;
+      timeSinceLastNote = 0;
+      noTone(BUZZER_PIN);
+    }
+  private:
+    int* SONG_SEQUENCE;
+    int NUM_NOTES;
+    int BUZZER_PIN;
+    bool isPlaying = false;
+    const long timeoutBetweenNotesMillis = 20;
+    int noteIndex = 0;
+    int timeSinceLastNote = 0;
+    long prevMillis = 0;
+};
