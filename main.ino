@@ -14,7 +14,8 @@ void setup() {
   Serial.begin(9600);
   Serial.println();
 
-  statusLight.setColor(StatusLight.ERROR_COLOR); // start with an error color, will be changed if setup completes properly
+  statusLight.begin();
+  statusLight.setColor(STATIONARY_COLOR); // start with an error color, will be changed if setup completes properly
 
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
@@ -25,7 +26,7 @@ void setup() {
   forwardButton.begin();
   backwardButton.begin();
   
-  statusLight.setColor(StatusLight.STATIONARY_COLOR); // setup complete, go back to normal
+  statusLight.setColor(STATIONARY_COLOR); // setup complete, go back to normal
 }
 
 void loop() {
@@ -48,9 +49,9 @@ void loop() {
 
   // update status light
   if(motorDirection == 0){ // stationary
-    statusLight.setColor(StatusLight.STATIONARY_COLOR);
+    statusLight.setColor(STATIONARY_COLOR);
   } else {
-    statusLight.setColor(StatusLight.MOVING_COLOR);
+    statusLight.setColor(MOVING_COLOR);
   }
 
   int speed = analogRead(SPEED_POT_PIN);

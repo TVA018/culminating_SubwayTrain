@@ -46,3 +46,9 @@ String stationHeader = padStrForLCD("Currently At");
 int currentStationIndex = 0;
 
 const int BUTTON_DEBOUNCE = 10;
+
+enum StatusColors {
+  STATIONARY_COLOR,
+  MOVING_COLOR,
+  ERROR_COLOR
+};
