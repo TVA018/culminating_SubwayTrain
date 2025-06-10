@@ -20,7 +20,6 @@ void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
 
-  pinMode(SPEED_POT_PIN, INPUT);
   deltaTracker.begin();
   autoLeds.begin();
   forwardButton.begin();
@@ -53,8 +52,4 @@ void loop() {
   } else {
     statusLight.setColor(MOVING_COLOR);
   }
-
-  int speed = analogRead(SPEED_POT_PIN);
-  speed = map(speed, 0, 1023, 0, 255);
-  Serial.println(analogRead(PHOTO_PIN));
 }

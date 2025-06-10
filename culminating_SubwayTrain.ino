@@ -15,7 +15,6 @@ void printDirection();
 // PINS
 const int RS = 2, EN = 3, D4 = 4, D5 = 5, D6 = 7, D7 = 9;
 const int LEDS[] = {A0, A1};
-const int SPEED_POT_PIN = A2;
 const int PHOTO_PIN = A3;
 const int FORWARD_BUTTON_PIN = A4;
 const int BACKWARD_BUTTON_PIN = A5;
