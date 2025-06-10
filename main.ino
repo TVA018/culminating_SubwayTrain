@@ -26,6 +26,8 @@ void setup() {
   backwardButton.begin();
   
   statusLight.setColor(STATIONARY_COLOR); // setup complete, go back to normal
+
+  pinMode(BUZZER_PIN, OUTPUT);
 }
 
 void loop() {

@@ -21,6 +21,7 @@ private:
       // Just arrived at a new location, had to have been moving backwards
       currentStationIndex--;
       stationHeader = padStrForLCD("Currently At");
+      tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
     } else {
       // Currently in motion
       // get next station
@@ -52,6 +53,7 @@ private:
       // Just arrived at a new location, had to have been moving forwards
       currentStationIndex++;
       stationHeader = padStrForLCD("Currently At");
+      tone(BUZZER_PIN, BEEP_FREQUENCY, BEEP_DURATION);
     } else {
       // Currently in motion
       // get next station
