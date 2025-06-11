@@ -30,9 +30,6 @@ String padStationName(String stationName) {
 }
 
 String rotateStringRight(String baseString) {
-  // "rotates" the string to the right by shifting all characters to the right,
-  // and looping characters back to the start if they go past the end
-
   // return if the baseString is empty
   if (baseString.length() <= 0) return baseString;
 
@@ -45,4 +42,17 @@ String rotateStringRight(String baseString) {
 void printDirection() {
   Serial.print("Current Direction: ");
   Serial.println((motorDirection < 0) ? "Backward" : ((motorDirection > 0) ? "Forward" : "Neutral"));
+}
+
+void updateNumberOfPeople() {
+  randomSeed(millis());  // randomize the seed based on the time elapsed
+  int prevAmountOfPeople = numPeople;
+  int decreaseAmount = random(0, numPeople + 1);
+  int increaseAmount = random(0, trainCapacity - numPeople + decreaseAmount + 1);
+  numPeople += increaseAmount - decreaseAmount;  // randomize the number of people
+
+  Serial.println(String(decreaseAmount) + " people left the train.");
+  Serial.println(String(increaseAmount) + " people got on the train.");
+  Serial.println("Current # people on the train: " + String(numPeople));  // print the number of people on the train
+  Serial.println();
 }

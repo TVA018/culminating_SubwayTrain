@@ -30,6 +30,10 @@ private:
     } else if (motorDirection == 0) {
       // Currently in motion
       motorDirection = 1;
+
+      // get the new number of people on the train
+      updateNumberOfPeople();
+
       // get next station
       stationHeader = padStrForLCD("Next Station");
       rotater->setString(STATIONS[currentStationIndex + motorDirection]);
@@ -68,6 +72,10 @@ private:
     } else if (motorDirection == 0) {
       // Currently in motion
       motorDirection = -1;
+
+      // get the new number of people on the train
+      updateNumberOfPeople();
+
       // get next station
       stationHeader = padStrForLCD("Next Station");
       rotater->setString(STATIONS[currentStationIndex + motorDirection]);

@@ -13,9 +13,15 @@ String padStrForLCD(String baseString);
 /** Pads a station name by a certain number of spaces for display on the LCD */
 String padStationName(String stationName);
 
+
+/** "rotates" a string to the right by shifting all characters to the right, and looping characters back to the start if they go past the end */
 String rotateStringRight(String baseString);
 
+/** Debugging */
 void printDirection();
+
+/** Randomly adds or remove people from the train */
+void updateNumberOfPeople();
 
 // PINS
 const int RS = 2, EN = 3, D4 = 4, D5 = 5, D6 = 7, D7 = 9;
@@ -53,3 +59,6 @@ String stationHeader = padStrForLCD("Currently At");
 int currentStationIndex = 0;
 
 const int BUTTON_DEBOUNCE = 10;
+
+const int trainCapacity = 1000;  // the maximum amount of people possible on the train
+int numPeople = 0;               // number of people on the train
