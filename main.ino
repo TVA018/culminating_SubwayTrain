@@ -1,35 +1,38 @@
 #include <LiquidCrystal.h>
 
+// create objects
 LiquidCrystal lcd(RS, EN, D4, D5, D6, D7);
 DeltaTracker deltaTracker;
 StringRotater rotater(STATIONS[currentStationIndex], 600);
 
-ForwardButton forwardButton(&rotater);
-BackwardButton backwardButton(&rotater);
+DoorSound doorSound(BUZZER_PIN, 1500, 800);
+ForwardButton forwardButton(&rotater, &doorSound);
+BackwardButton backwardButton(&rotater, &doorSound);
 
-AutoLeds autoLeds(PHOTO_PIN, LEDS, sizeof(LEDS)/sizeof(int), 200);
+AutoLeds autoLeds(PHOTO_PIN, LEDS, sizeof(LEDS) / sizeof(int), 200);
 StatusLight statusLight(RGB_RED, RGB_GREEN);
 
-SequencePlayer songPlayer(BUZZER_PIN);
-
 void setup() {
+  // debugging purposes
   Serial.begin(9600);
   Serial.println();
 
+  // begin status lights
   statusLight.begin();
-  statusLight.setColor(STATIONARY_COLOR); // start with an error color, will be changed if setup completes properly
+  statusLight.setColor(STATIONARY_COLOR);  // start with an error color, will be changed if setup completes properly
 
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
 
+  // setup objects
   deltaTracker.begin();
   autoLeds.begin();
   forwardButton.begin();
   backwardButton.begin();
-  songPlayer.begin();
-  songPlayer.play(SWAN_LAKE, NUM_NOTES_SWAN);
-  
-  statusLight.setColor(STATIONARY_COLOR); // setup complete, go back to normal
+  doorSound.begin();
+
+  // all checks completed
+  statusLight.setColor(STATIONARY_COLOR);  // setup complete, go back to normal
 }
 
 void loop() {
@@ -41,7 +44,7 @@ void loop() {
   forwardButton.update(deltaMs);
   backwardButton.update(deltaMs);
   rotater.update(deltaMs);
-  songPlayer.update(deltaMs);
+  doorSound.update(deltaMs);
   autoLeds.update();
 
   // print on lcd
@@ -52,7 +55,7 @@ void loop() {
   lcd.print(rotater.getString());
 
   // update status light
-  if(motorDirection == 0){ // stationary
+  if (motorDirection == 0) {  // stationary
     statusLight.setColor(STATIONARY_COLOR);
   } else {
     statusLight.setColor(MOVING_COLOR);
