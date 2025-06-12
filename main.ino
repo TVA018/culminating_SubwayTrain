@@ -19,7 +19,7 @@ void setup() {
 
   // begin status lights
   statusLight.begin();
-  statusLight.setColor(STATIONARY_COLOR);  // start with an error color, will be changed if setup completes properly
+  statusLight.setColor(ERROR_COLOR);  // start with an error color, will be changed if setup completes properly
 
   // set up the LCD's number of columns and rows:
   lcd.begin(LCD_WIDTH, LCD_HEIGHT);
